@@ -30,13 +30,25 @@ Then run:
 python src/pdf2md.py
 ```
 
+## Installation (Option 3: Using conda)
+
+```bash
+conda env create -f pdf2md.yaml -p  ~/envs/pdf2md
+```
+
+Then run:
+```bash
+conda activate ~/envs/pdf2md
+python src/pdf2md.py -p mypdf.pdf -m gemma3:12b -o output.md
+```
+
 ---
 
 ## Dependencies
 
 - PyMuPDF (for PDF rendering) — not free for commercial use
 - Pillow
-- Ollama
+- Ollama, for Ollama use `curl -fsSL https://ollama.com/install.sh | sh` and the `ollama run gemma3:12b`
 - A local model like gemma3:12b or gemma3:4b must be installed and pulled
 
 ---
