@@ -18,11 +18,11 @@ def convert_pdf_to_images(pdf_path):
     print()  # Retour à la ligne à la fin
     return images
 
-prompt = "Extract all readable text and text chunks from this image" + \
+PROMPT = "Extract all readable text and text chunks from this image" + \
          " and format it as structured Markdown." + \
          " Look in the entire image always and try to retrieve all text!"
 
-def query_gemma3_with_images(image_bytes_list, model="gemma3:12b", prompt=prompt):
+def query_gemma3_with_images(image_bytes_list, model="gemma3:12b", prompt=PROMPT):
     response = ollama.chat(
         model=model,
         messages=[{
@@ -40,7 +40,7 @@ def main():
     parser.add_argument("-p", "--pdf", required=True, help="Path to the PDF file to process")
     parser.add_argument("-o", "--output", default="output.md", help="Path to the output Markdown file (default: output.md)")
     parser.add_argument("-m", "--model", default="gemma3:12b", help="Model to use for OCR (default: gemma3:12b)")
-    parser.add_argument("-pr", "--prompt", default=prompt, help="Prompt to use for text extraction (default: built-in prompt)")
+    parser.add_argument("-pr", "--prompt", default=PROMPT, help="Prompt to use for text extraction (default: built-in prompt)")
     args = parser.parse_args()
 
     images = convert_pdf_to_images(args.pdf)
@@ -49,8 +49,8 @@ def main():
 
         extracted_text = query_gemma3_with_images(images, model=args.model)
 
-        with open(args.output, "w", encoding="utf-8") as md_file:
-            md_file.write(extracted_text)
+        with open(args.output, "a", encoding="utf-8") as md_file:
+            md_file.write(extracted_text+ "\n---\n")
         print(f"\nMarkdown Conversion Complete! Check `{args.output}`.")
     else:
         print("No images found in the PDF.")
