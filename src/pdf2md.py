@@ -15,7 +15,7 @@ def convert_pdf_to_images(pdf_path):
         img_buffer = io.BytesIO()
         img.save(img_buffer, format="PNG")  # Save as in-memory PNG
         images.append(img_buffer.getvalue())  # Raw PNG bytes
-    print()  # Retour à la ligne à la fin
+    print() # Line break at the end
     return images
 
 PROMPT = "Extract all readable text and text chunks from this image" + \
