@@ -1,0 +1,11 @@
+name: pdf2md
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python
+  - pymupdf
+  - pillow
+  - pip
+  - pip:
+      - ollama
